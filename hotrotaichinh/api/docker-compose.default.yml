@@ -1,0 +1,41 @@
+# docker-compose.default.yml
+version: '2'
+
+networks:
+    proxy:
+        external:
+            name: common_proxy
+
+services:
+    hotrotaichinh_db:
+        container_name: hotrotaichinh_db
+        image: mysql:8.0
+        environment:
+		- MYSQL_DATABASE=hotrotaichinh
+            - MYSQL_USER=ducdv
+            - MYSQL_PASSWORD=ducdv@79
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./mysql-data:/var/lib/mysql
+		- ./mysql-data/init.sql:/docker-entrypoint-initdb.d/init.sql
+        networks:
+            - proxy
+
+    hotrotaichinh_api:
+        container_name: hotrotaichinh_api
+        build:
+            context: ./
+            dockerfile: api.dockerfile
+        working_dir: /code
+        volumes:
+            - .:/code:cached
+        environment:
+            - "DB_CONNECTION=pgsql"
+            - "DB_PORT=5432"
+            - "DB_HOST=project1_db"
+            - "DB_DATABASE=docker"
+            - "DB_USERNAME=docker"
+            - "DB_PASSWORD=docker"
+        networks:
+            - proxy
