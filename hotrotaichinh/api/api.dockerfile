@@ -1,11 +1,8 @@
 # api.dockerfile
-FROM php:7.0.17-fpm
+FROM php:7.2.5-fpm
 
 RUN apt-get update && apt-get install -y libmcrypt-dev libpq-dev \
     libmagickwand-dev --no-install-recommends \
-    && pecl install imagick \
-    && docker-php-ext-configure mysql -with-mysql=/usr/local/mysql \
-    && docker-php-ext-enable imagick \
-    && docker-php-ext-install mcrypt pdo pdo_mysql mysql
+    && docker-php-ext-install mysqli
 
 RUN mkdir /docker-containers

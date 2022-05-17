@@ -1,18 +1,18 @@
 # docker-compose.yml
-version: '2'
+version: '1'
 networks:
-  proxy:
-    external:
-      name: common_proxy
-
+    proxy:
+        external:
+            name: common_proxy
+            
 services:
-  nginx:
-    container_name: nginx
-    image: "nginx:1.12.1"
-    restart: always
-    volumes:
-      - ./conf.d:/etc/nginx/conf.d
-    ports:
-      - "80:80"
-    networks:
-      - proxy
+    nginx:
+        container_name: nginx
+        image: "nginx:1.20.2-alpine"
+        restart: always
+        volumes:
+            - ./conf.d:/etc/nginx/conf.d
+        ports:
+            - "80:80"
+        networks:
+            - proxy
