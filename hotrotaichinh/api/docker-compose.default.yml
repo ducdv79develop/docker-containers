@@ -11,14 +11,14 @@ services:
         container_name: hotrotaichinh_db
         image: mysql:8.0
         environment:
-		- MYSQL_DATABASE=hotrotaichinh
+            - MYSQL_DATABASE=hotrotaichinh
             - MYSQL_USER=ducdv
             - MYSQL_PASSWORD=ducdv@79
         ports:
             - "3306:3306"
         volumes:
             - ./mysql-data:/var/lib/mysql
-		- ./mysql-data/init.sql:/docker-entrypoint-initdb.d/init.sql
+            - ./mysql-data/init.sql:/docker-entrypoint-initdb.d/init.sql
         networks:
             - proxy
 
@@ -27,15 +27,15 @@ services:
         build:
             context: ./
             dockerfile: api.dockerfile
-        working_dir: /code
+        working_dir: /docker-containers
         volumes:
-            - .:/code:cached
+            - .:/docker-containers:cached
         environment:
-            - "DB_CONNECTION=pgsql"
-            - "DB_PORT=5432"
-            - "DB_HOST=project1_db"
-            - "DB_DATABASE=docker"
-            - "DB_USERNAME=docker"
-            - "DB_PASSWORD=docker"
+            - DB_CONNECTION=mysql
+            - DB_PORT=3306
+            - DB_HOST=hotrotaichinh_db
+            - DB_DATABASE=hotrotaichinh
+            - DB_USERNAME=ducdv
+            - DB_PASSWORD=ducdv@79
         networks:
             - proxy
