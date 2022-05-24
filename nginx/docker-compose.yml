@@ -9,6 +9,7 @@ services:
   nginx:
     container_name: nginx
     image: "nginx:1.20.2-alpine"
+    command: COPY --from=build /app/build /usr/share/nginx/html
     restart: unless-stopped
     tty: true
     volumes:
