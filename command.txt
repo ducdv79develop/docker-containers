@@ -1,0 +1,32 @@
+#step1: create network
+    docker network create docker-network
+
+#step2: copy .env and docker-compose.yml
+    copy hotrotaichinh/api/.env.example hotrotaichinh/api/.env
+    copy hotrotaichinh/app/.env.example hotrotaichinh/app/.env
+    copy noithatlucmo/.env.local noithatlucmo/.env
+
+    copy hotrotaichinh/api/docker-compose.default.yml hotrotaichinh/api/docker-compose.yml
+    copy hotrotaichinh/app/docker-compose.default.yml hotrotaichinh/app/docker-compose.yml
+    copy noithatlucmo/docker-compose.default.yml noithatlucmo/docker-compose.yml
+
+#step3: build container (--build not require)
+    docker-compose -f nginx/docker-compose.yml up -d --build
+
+    docker-compose -f hotrotaichinh/api/docker-compose.yml up -d --build
+    docker-compose -f hotrotaichinh/app/docker-compose.yml up -d --build
+
+    docker-compose -f noithatlucmo/docker-compose.yml up -d --build
+
+*note: command used
+    command in container:
+        docker exec -it container-name sh
+
+    remove cache:
+        docker system prune
+        docker system prune -a -f
+
+*permission mysql:
+    docker exec -it hotrotaichinh_db sh
+    chown mysql:mysql /etc/mysql/my.cnf
+    chmod 600 /etc/mysql/my.cnf
