@@ -1,3 +1,6 @@
 [submodule "hotrotaichinh"]
 	path = hotrotaichinh
 	url = https://github.com/ducdv79develop/hotrotaichinh.git
+[submodule "noithatlucmo"]
+	path = noithatlucmo
+	url = https://github.com/ducdv79develop/noithatlucmo.git
