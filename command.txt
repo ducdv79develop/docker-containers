@@ -6,15 +6,13 @@
     copy hotrotaichinh/app/.env.example hotrotaichinh/app/.env
     copy noithatlucmo/.env.local noithatlucmo/.env
 
-    copy hotrotaichinh/api/docker-compose.default.yml hotrotaichinh/api/docker-compose.yml
-    copy hotrotaichinh/app/docker-compose.default.yml hotrotaichinh/app/docker-compose.yml
+    copy hotrotaichinh/docker-compose.default.yml hotrotaichinh/docker-compose.yml
     copy noithatlucmo/docker-compose.default.yml noithatlucmo/docker-compose.yml
 
 #step3: build container (--build not require)
     docker-compose -f nginx/docker-compose.yml up -d --build
 
-    docker-compose -f hotrotaichinh/api/docker-compose.yml up -d --build
-    docker-compose -f hotrotaichinh/app/docker-compose.yml up -d --build
+    docker-compose -f hotrotaichinh/docker-compose.yml up -d --build
 
     docker-compose -f noithatlucmo/docker-compose.yml up -d --build
 
